@@ -9,7 +9,7 @@ var client = new RegClient({
 });
 
 var server = http.createServer(function (req, res) {
-  var match = req.url.match(/^\/[a-zA-Z-]+(\/?)$/);
+  var match = req.url.match(/^\/([a-zA-Z-]+)(\/?)$/);
   if (!match) return serve(req, res);
 
   client.get('/' + match[1], function (err, pkg) {
