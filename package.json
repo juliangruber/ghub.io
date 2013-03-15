@@ -1,5 +1,4 @@
 {
-  "name": "npm-git.im",
   "description": "npm-git.im/<package-name> takes you to the package's github page",
   "version": "0.0.0",
   "repository": {
@@ -9,7 +8,8 @@
   "homepage": "https://github.com/juliangruber/npm-git.im",
   "main": "index.js",
   "scripts": {
-    "test": "tap test/*.js"
+    "test": "tap test/*.js",
+    "start": "index.js"
   },
   "dependencies": {
     "github-url": "~1.0.0",
@@ -31,5 +31,10 @@
     "email": "mail@juliangruber.com",
     "url": "http://juliangruber.com"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": "0.8.x"
+  },
+  "subdomain": "ghub",
+  "name": "ghub"
 }
