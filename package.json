@@ -1,0 +1,35 @@
+{
+  "name": "npm-git.im",
+  "description": "npm-git.im/<package-name> takes you to the package's github page",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/juliangruber/npm-git.im.git"
+  },
+  "homepage": "https://github.com/juliangruber/npm-git.im",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "dependencies": {
+    "github-url": "~1.0.0",
+    "npm-registry-client": "~0.2.18",
+    "ecstatic": "~0.4.0"
+  },
+  "devDependencies": {
+    "tap": "*"
+  },
+  "keywords": [
+    "npm",
+    "git",
+    "github",
+    "website",
+    "redirect"
+  ],
+  "author": {
+    "name": "Julian Gruber",
+    "email": "mail@juliangruber.com",
+    "url": "http://juliangruber.com"
+  },
+  "license": "MIT"
+}
