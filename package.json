@@ -9,7 +9,10 @@
   "main": "index.js",
   "scripts": {
     "test": "tap test/*.js",
-    "start": "index.js"
+    "start": "bin/ghub.io.js"
+  },
+  "bin": {
+    "ghub.io": "./bin/ghub.io.js"
   },
   "dependencies": {
     "github-url": "~1.0.0",
@@ -17,7 +20,8 @@
     "ecstatic": "~0.4.0"
   },
   "devDependencies": {
-    "tap": "*"
+    "tap": "*",
+    "supertest": "~0.5.1"
   },
   "keywords": [
     "npm",
