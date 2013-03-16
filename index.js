@@ -13,6 +13,7 @@ var client = new RegClient({
 module.exports = http.createServer(function (req, res) {
   if (static(req, res)) return;
 
+  track.request(req);
   client.get(req.url, function (err, pkg) {
     var location = 'http://npmjs.org' + req.url;
 
@@ -37,9 +38,7 @@ function static (req, res) {
   if (pathname == '/' || pathname == '/favicon.ico') {
     serve(req, res)
     return true;
-  } else {
-    track.request(req);
-    return false;
   }
+  return false;
 }
 
