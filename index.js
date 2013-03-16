@@ -3,6 +3,7 @@ var http = require('http');
 var parse = require('github-url').toUrl;
 var serve = require('ecstatic')(__dirname + '/static');
 var url = require('url');
+var track = require('./lib/track');
 
 var client = new RegClient({
   registry : 'http://registry.npmjs.org/',
@@ -10,6 +11,8 @@ var client = new RegClient({
 });
 
 module.exports = http.createServer(function (req, res) {
+  track.request(req);
+
   if (static(req, res)) return;
 
   client.get(req.url, function (err, pkg) {
@@ -17,8 +20,12 @@ module.exports = http.createServer(function (req, res) {
 
     if (!err && pkg.repository) {
       repo = parse(pkg.repository);
-      if (!repo) console.error('couldn\'t parse repo: ' + pkg.repository);
-      else location = repo;
+      if (!repo) {
+        console.error('couldn\'t parse repo: ' + pkg.repository);
+        track.error(pkg);
+      } else {
+        location = repo;
+      }
     }
 
     res.statusCode = 302;
