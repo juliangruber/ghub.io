@@ -9,7 +9,7 @@ var client = new RegClient({
   cache : __dirname + '/cache'
 });
 
-var server = http.createServer(function (req, res) {
+module.exports = http.createServer(function (req, res) {
   if (static(req, res)) return;
 
   client.get(req.url, function (err, pkg) {
@@ -36,7 +36,3 @@ function static (req, res) {
   return false;
 }
 
-var port = Number(process.argv[2]) || 7000;
-server.listen(port, function () {
-  console.log('server listening on port ' + port);
-});
