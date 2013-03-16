@@ -1,4 +1,5 @@
 {
+  "name": "ghub.io",
   "description": "npm-git.im/<package-name> takes you to the package's github page",
   "version": "0.0.0-9",
   "repository": {
