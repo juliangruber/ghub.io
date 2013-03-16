@@ -1,7 +1,8 @@
-
 # ghub.io
 
 The code behing [ghub.io](http://ghub.io/).
+
+[![Build Status](https://travis-ci.org/juliangruber/ghub.io.png)](https://travis-ci.org/juliangruber/ghub.io)
 
 ## What
 
