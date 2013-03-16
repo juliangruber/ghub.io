@@ -11,8 +11,6 @@ var client = new RegClient({
 });
 
 module.exports = http.createServer(function (req, res) {
-  track.request(req);
-
   if (static(req, res)) return;
 
   client.get(req.url, function (err, pkg) {
@@ -39,7 +37,9 @@ function static (req, res) {
   if (pathname == '/' || pathname == '/favicon.ico') {
     serve(req, res)
     return true;
+  } else {
+    track.request(req);
+    return false;
   }
-  return false;
 }
 
