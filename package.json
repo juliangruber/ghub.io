@@ -20,8 +20,7 @@
     "ecstatic": "~0.4.0"
   },
   "devDependencies": {
-    "tap": "*",
-    "supertest": "~0.5.1"
+    "tap": "~0.4.0"
   },
   "keywords": [
     "npm",
