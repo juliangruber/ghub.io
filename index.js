@@ -7,8 +7,13 @@ var track = require('./lib/track');
 
 var client = new RegClient({
   registry : 'http://registry.npmjs.org/',
-  cache : __dirname + '/cache'
+  cache : __dirname + '/cache',
+  log : { error: noop, warn: noop, info: noop,
+    verbose: noop, silly: noop, http: noop,
+    pause: noop, resume: noop }
 });
+
+function noop () {}
 
 module.exports = http.createServer(function (req, res) {
   if (static(req, res)) return;
