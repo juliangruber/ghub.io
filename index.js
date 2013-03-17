@@ -29,7 +29,8 @@ module.exports = http.createServer(function (req, res) {
 
     res.statusCode = 302;
     res.setHeader('location', location);
-    res.end('');
+    if (req.method == 'HEAD') res.end('')
+    else res.end('-> ' + location);
   });
 });
 
