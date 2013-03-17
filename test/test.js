@@ -21,12 +21,26 @@ test('package not found', function (t, get) {
   });
 });
 
-test('static', function (t, get) {
+test('GET /', function (t, get) {
   get('/', function (res, body) {
     t.equal(res.headers['content-type'], 'text/html; charset=UTF-8');
     t.equal(res.statusCode, 200);
     body(usage);
   });
+});
+
+test('GET /robots.txt', function (t, get) {
+  get('/robots.txt', function (res, body) {
+    t.equal(res.statusCode, 404);
+    body('File not found. :(');
+  })
+});
+
+test('GET /favicon.ico', function (t, get) {
+  get('/favicon.ico', function (res, body) {
+    t.equal(res.statusCode, 404);
+    body('File not found. :(');
+  })
 });
 
 function test (name, cb) {
