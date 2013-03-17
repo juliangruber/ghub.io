@@ -37,6 +37,14 @@ test('GET /<package-without-repository>', function (t) {
   });
 });
 
+test('GET /<package-with-bitbucked-repo>', function (t) {
+  t.req('GET', '/program', function (res) {
+    t.equal(res.headers.location, 'http://npmjs.org/program');
+    t.equal(res.statusCode, 302);
+    t.body('-> http://npmjs.org/program');
+  });
+});
+
 test('GET /', function (t) {
   t.req('GET', '/', function (res) {
     t.equal(res.headers['content-type'], 'text/html; charset=UTF-8');
