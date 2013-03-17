@@ -4,10 +4,11 @@ var parse = require('github-url').toUrl;
 var serve = require('ecstatic')(__dirname + '/static');
 var url = require('url');
 var track = require('./lib/track');
+var os = require('os');
 
 var client = new RegClient({
   registry : 'http://registry.npmjs.org/',
-  cache : __dirname + '/cache',
+  cache : os.tmpDir() + '/ghub.io-cache',
   log : { error: noop, warn: noop, info: noop,
     verbose: noop, silly: noop, http: noop,
     pause: noop, resume: noop }
