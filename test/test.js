@@ -5,52 +5,67 @@ var fs = require('fs');
 
 var usage = fs.readFileSync(__dirname + '/../static/index.html').toString();
 
-test('redirect', function (t, get) {
-  get('/review', function (res, body) {
+test('GET /<valid-package>', function (t) {
+  t.req('GET', '/review', function (res) {
     t.equal(res.headers.location, 'https://github.com/juliangruber/review');
     t.equal(res.statusCode, 302);
-    body('');
+    t.body('-> https://github.com/juliangruber/review');
   });
 });
 
-test('package not found', function (t, get) {
-  get('/sdf098sdf098', function (res, body) {
+test('HEAD /<valid-package>', function (t) {
+  t.req('HEAD', '/review', function (res) {
+    t.equal(res.headers.location, 'https://github.com/juliangruber/review');
+    t.equal(res.statusCode, 302);
+    t.body('');
+  });
+});
+
+test('GET /<package-not-found>', function (t) {
+  t.req('GET', '/sdf098sdf098', function (res) {
     t.equal(res.headers.location, 'http://npmjs.org/sdf098sdf098');
     t.equal(res.statusCode, 302);
-    body('');
+    t.body('-> http://npmjs.org/sdf098sdf098');
   });
 });
 
-test('GET /', function (t, get) {
-  get('/', function (res, body) {
+test('GET /', function (t) {
+  t.req('GET', '/', function (res) {
     t.equal(res.headers['content-type'], 'text/html; charset=UTF-8');
     t.equal(res.statusCode, 200);
-    body(usage);
+    t.body(usage);
   });
 });
 
-test('GET /robots.txt', function (t, get) {
-  get('/robots.txt', function (res, body) {
+test('GET /robots.txt', function (t) {
+  t.req('GET', '/robots.txt', function (res) {
     t.equal(res.statusCode, 404);
-    body('File not found. :(');
+    t.body('File not found. :(');
   })
 });
 
-test('GET /favicon.ico', function (t, get) {
-  get('/favicon.ico', function (res, body) {
+test('GET /favicon.ico', function (t) {
+  t.req('GET', '/favicon.ico', function (res) {
     t.equal(res.statusCode, 404);
-    body('File not found. :(');
+    t.body('File not found. :(');
   })
 });
 
 function test (name, cb) {
   tap.test(name, function (t) {
-    ghub.listen(cb.bind(null, t, get));
+    t.req = req;
+    ghub.listen(cb.bind(null, t));
 
-    function get (url, cb) {
-      url = 'http://localhost:' + ghub.address().port + url;
-      http.get(url, function (res) {
-        cb(res, body);
+    function req (method, path, cb) {
+      var opts = {
+        hostname : 'localhost',
+        port : ghub.address().port,
+        path : path,
+        method : method
+      }
+      var req = http.request(opts, function (res) {
+        t.body = body;
+        cb(res);
 
         function body (str) {
           var data = '';
@@ -60,7 +75,9 @@ function test (name, cb) {
             ghub.close(t.end.bind(t));
           });
         }
-      }).on('error', t.notOk.bind(t));
+      })
+      req.on('error', t.notOk.bind(t));
+      req.end();
     }
   });
 }
