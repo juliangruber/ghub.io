@@ -45,6 +45,14 @@ test('GET /<package-with-bitbucked-repo>', function (t) {
   });
 });
 
+test('GET /<package-with-homepage>', function (t) {
+  t.req('GET', '/ihaveahomepage', function (res) {
+    t.equal(res.headers.location, 'https://github.com/juliangruber/ghub.io');
+    t.equal(res.statusCode, 302);
+    t.body('-> https://github.com/juliangruber/ghub.io');
+  });
+});
+
 test('GET /', function (t) {
   t.req('GET', '/', function (res) {
     t.equal(res.headers['content-type'], 'text/html; charset=UTF-8');
