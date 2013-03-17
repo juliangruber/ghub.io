@@ -29,6 +29,14 @@ test('GET /<package-not-found>', function (t) {
   });
 });
 
+test('GET /<package-without-repository>', function (t) {
+  t.req('GET', '/mysql', function (res) {
+    t.equal(res.headers.location, 'http://npmjs.org/mysql');
+    t.equal(res.statusCode, 302);
+    t.body('-> http://npmjs.org/mysql');
+  });
+});
+
 test('GET /', function (t) {
   t.req('GET', '/', function (res) {
     t.equal(res.headers['content-type'], 'text/html; charset=UTF-8');
