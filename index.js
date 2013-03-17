@@ -22,10 +22,16 @@ module.exports = http.createServer(function (req, res) {
   client.get(req.url, function (err, pkg) {
     var location = 'http://npmjs.org' + req.url;
 
-    var validRepo = pkg.repository && (
-      typeof pkg.repository == 'string' ||
-      pkg.repository.url && pkg.repository.url.length
-    );
+    var repoUrl
+
+    if (pkg.repository) {
+      repoUrl = typeof pkg.repository == 'string'
+        ? pkg.repository
+        : pkg.repository.url
+    }
+
+    var validRepo = repoUrl && repoUrl.length
+      && repoUrl.indexOf('github') > -1;
 
     if (!err && validRepo) {
       repo = parse(pkg.repository);
