@@ -22,19 +22,12 @@ module.exports = http.createServer(function (req, res) {
   client.get(req.url, function (err, pkg) {
     var location = 'http://npmjs.org' + req.url;
 
-    var repoUrl
+    var repoUrl = validUrl(pkg.repository)
+      || validUrl(pkg.repository && pkg.repository.url)
+      || validUrl(pkg.versions && pkg.versions[Object.keys(pkg.versions).pop()].homepage);
 
-    if (pkg.repository) {
-      repoUrl = typeof pkg.repository == 'string'
-        ? pkg.repository
-        : pkg.repository.url
-    }
-
-    var validRepo = repoUrl && repoUrl.length
-      && repoUrl.indexOf('github') > -1;
-
-    if (!err && validRepo) {
-      repo = parse(pkg.repository);
+    if (!err && repoUrl) {
+      repo = parse(repoUrl);
       if (!repo) {
         console.error('couldn\'t parse repo: ' + pkg.repository);
         track.error(pkg);
@@ -49,6 +42,12 @@ module.exports = http.createServer(function (req, res) {
     else res.end('-> ' + location);
   });
 });
+
+function validUrl (url) {
+  return typeof url == 'string' && url.length && url.indexOf('github') > -1
+    ? url
+    : false
+}
 
 function static (req, res) {
   var pathname = url.parse(req.url).pathname;
