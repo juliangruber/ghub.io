@@ -17,7 +17,12 @@ module.exports = http.createServer(function (req, res) {
   client.get(req.url, function (err, pkg) {
     var location = 'http://npmjs.org' + req.url;
 
-    if (!err && pkg.repository) {
+    var validRepo = pkg.repository && (
+      typeof pkg.repository == 'string' ||
+      pkg.repository.url && pkg.repository.url.length
+    );
+
+    if (!err && validRepo) {
       repo = parse(pkg.repository);
       if (!repo) {
         console.error('couldn\'t parse repo: ' + pkg.repository);
