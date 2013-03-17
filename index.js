@@ -35,8 +35,8 @@ module.exports = http.createServer(function (req, res) {
 
 function static (req, res) {
   var pathname = url.parse(req.url).pathname;
-  if (pathname == '/' || pathname == '/favicon.ico') {
-    serve(req, res)
+  if (['/', '/favicon.ico', '/robots.txt'].indexOf(pathname) >= 0) {
+    serve(req, res);
     return true;
   }
   return false;
