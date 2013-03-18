@@ -22,7 +22,7 @@
     "ga": "0.0.2"
   },
   "devDependencies": {
-    "tap": "~0.4.0"
+    "webtap": "0.0.0"
   },
   "keywords": [
     "npm",
