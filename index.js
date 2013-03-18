@@ -28,10 +28,13 @@ module.exports = http.createServer(function (req, res) {
       || validUrl(pkg.versions && pkg.versions[Object.keys(pkg.versions).pop()].homepage);
 
     if (!err && repoUrl) {
-      repo = parse(repoUrl);
+      var repo;
+
+      try { repo = parse(repoUrl) }
+      catch (err) { track.error(err, pkg) }
+
       if (!repo) {
-        console.error('couldn\'t parse repo: ' + pkg.repository);
-        track.error(pkg);
+        track.error('empty', pkg);
       } else {
         location = repo;
       }
