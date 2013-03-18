@@ -6,54 +6,54 @@ var test = webtap(ghub);
 
 var usage = fs.readFileSync(__dirname + '/../static/index.html').toString();
 
-test('valid package', 'GET', '/review', function (t, res) {
+test('valid package', 'GET /review', function (t, res) {
   t.equal(res.headers.location, 'https://github.com/juliangruber/review');
   t.equal(res.statusCode, 302);
   t.body('-> https://github.com/juliangruber/review');
 });
 
-test('valid package', 'HEAD', '/review', function (t, res) {
+test('valid package', 'HEAD /review', function (t, res) {
   t.equal(res.headers.location, 'https://github.com/juliangruber/review');
   t.equal(res.statusCode, 302);
   t.body('');
 });
 
-test('not found', 'GET', '/sdf098sdf098', function (t, res) {
+test('not found', 'GET /sdf098sdf098', function (t, res) {
   t.equal(res.headers.location, 'http://npmjs.org/sdf098sdf098');
   t.equal(res.statusCode, 302);
   t.body('-> http://npmjs.org/sdf098sdf098');
 });
 
-test('without repository', 'GET', '/mysql', function (t, res) {
+test('without repository', 'GET /mysql', function (t, res) {
   t.equal(res.headers.location, 'http://npmjs.org/mysql');
   t.equal(res.statusCode, 302);
   t.body('-> http://npmjs.org/mysql');
 });
 
-test('bitbucked', 'GET', '/program', function (t, res) {
+test('bitbucked', 'GET /program', function (t, res) {
   t.equal(res.headers.location, 'http://npmjs.org/program');
   t.equal(res.statusCode, 302);
   t.body('-> http://npmjs.org/program');
 });
 
-test('homepage', 'GET', '/ihaveahomepage', function (t, res) {
+test('homepage', 'GET /ihaveahomepage', function (t, res) {
   t.equal(res.headers.location, 'https://github.com/juliangruber/ghub.io');
   t.equal(res.statusCode, 302);
   t.body('-> https://github.com/juliangruber/ghub.io');
 });
 
-test('GET' ,'/', function (t, res) {
+test('GET /', function (t, res) {
   t.equal(res.headers['content-type'], 'text/html; charset=UTF-8');
   t.equal(res.statusCode, 200);
   t.body(usage);
 });
 
-test('GET', '/robots.txt', function (t, res) {
+test('GET /robots.txt', function (t, res) {
   t.equal(res.statusCode, 404);
   t.body('File not found. :(');
 });
 
-test('GET', '/favicon.ico', function (t, res) {
+test('GET /favicon.ico', function (t, res) {
   t.equal(res.statusCode, 404);
   t.body('File not found. :(');
 });

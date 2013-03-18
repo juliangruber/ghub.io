@@ -1,7 +1,7 @@
 {
   "name": "ghub",
   "description": "npm-git.im/<package-name> takes you to the package's github page",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "repository": {
     "type": "git",
     "url": "git://github.com/juliangruber/ghub.io.git"
@@ -22,7 +22,7 @@
     "ga": "0.0.2"
   },
   "devDependencies": {
-    "webtap": "0.0.0"
+    "webtap": "~0.1.0"
   },
   "keywords": [
     "npm",
