@@ -24,13 +24,13 @@ test('not found', 'GET /sdf098sdf098', function (t, res) {
   t.body('-> http://npmjs.org/sdf098sdf098');
 });
 
-test('without repository', 'GET /mysql', function (t, res) {
-  t.equal(res.headers.location, 'http://npmjs.org/mysql');
+test('without repository', 'GET /jsonp', function (t, res) {
+  t.equal(res.headers.location, 'http://npmjs.org/jsonp');
   t.equal(res.statusCode, 302);
-  t.body('-> http://npmjs.org/mysql');
+  t.body('-> http://npmjs.org/jsonp');
 });
 
-test('bitbucked', 'GET /program', function (t, res) {
+test('bitbucket', 'GET /program', function (t, res) {
   t.equal(res.headers.location, 'http://npmjs.org/program');
   t.equal(res.statusCode, 302);
   t.body('-> http://npmjs.org/program');
