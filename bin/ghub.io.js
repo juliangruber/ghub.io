@@ -2,7 +2,7 @@
 
 var server = require('..');
 
-var port = Number(process.argv[2]) || 7000;
+var port = process.env.PORT || process.argv[2] || 7000;
 server.listen(port, function () {
   console.log('server listening on port ' + port);
 });
