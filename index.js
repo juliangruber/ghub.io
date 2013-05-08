@@ -20,7 +20,9 @@ module.exports = http.createServer(function (req, res) {
   if (static(req, res)) return;
 
   track.request(req);
-  client.get(req.url, function (err, pkg) {
+
+  var urlParts = req.url.match(/\/([^\/]+)(.*)/);
+  client.get(urlParts ? urlParts[1] : req.url, function (err, pkg) {
     var location = 'http://npmjs.org' + req.url;
 
     var repoUrl = validUrl(pkg.repository)
@@ -36,7 +38,10 @@ module.exports = http.createServer(function (req, res) {
       if (!repo) {
         track.error('empty', pkg);
       } else {
-        location = repo;
+        location = repo.replace(/\.git$/, '');
+        if (urlParts) {
+          location += urlParts[2];
+        }
       }
     }
 
