@@ -10,7 +10,9 @@
   "main": "index.js",
   "scripts": {
     "test": "tap test/*.js",
-    "start": "bin/ghub.io.js"
+    "start": {
+      "ghub.io" : "bin/ghub.io.js"
+    }
   },
   "bin": {
     "ghub.io": "./bin/ghub.io.js"
