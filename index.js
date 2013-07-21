@@ -1,61 +1,61 @@
-var RegClient = require('npm-registry-client');
 var http = require('http');
 var parse = require('github-url').toUrl;
 var serve = require('ecstatic')(__dirname + '/static');
 var url = require('url');
 var track = require('./lib/track');
 var os = require('os');
+var level = require('level');
+var sub = require('level-sublevel');
+var predirect = require('predirect');
+var couchSync = require('level-couch-sync');
 
-var client = new RegClient({
-  registry : 'http://registry.npmjs.org/',
-  cache : os.tmpDir() + '/ghub.io-cache',
-  log : { error: noop, warn: noop, info: noop,
-    verbose: noop, silly: noop, http: noop,
-    pause: noop, resume: noop }
+var db = sub(level(__dirname + '/db'));
+var meta = db.sublevel('meta');
+var repoUrls = db.sublevel('repo-urls');
+var registry = 'http://isaacs.iriscouch.com/registry';
+var sync = couchSync(registry, db, meta, function (data, emit) {
+  var pkg = data.doc;
+  var repoUrl = validUrl(pkg.repository)
+    || validUrl(
+        pkg.repository && pkg.repository.url
+      )
+    || validUrl(
+        pkg.versions && Object.keys(pkg.versions).length
+        && pkg.versions[Object.keys(pkg.versions).pop()].homepage
+      );
+  if (repoUrl) emit(pkg.name, repoUrl, repoUrls);
 });
 
-function noop () {}
+sync.on('progress', function (ratio) {
+  console.log(Math.floor(ratio*10000)/100 + '%');
+});
 
 module.exports = http.createServer(function (req, res) {
   if (static(req, res)) return;
-
   track.request(req);
 
   var urlParts = req.url.match(/\/([^\/]+)(.*)/);
-  client.get(urlParts ? urlParts[1] : req.url, function (err, pkg) {
-    var location = 'http://npmjs.org' + req.url;
+  var name = urlParts
+    ? urlParts[1]
+    : req.url;
+  var redirect = predirect(req, res);
 
-    var repoUrl = validUrl(pkg.repository)
-      || validUrl(pkg.repository && pkg.repository.url)
-      || validUrl(pkg.versions && pkg.versions[Object.keys(pkg.versions).pop()].homepage);
-
-    if (!err && repoUrl) {
-      var repo;
-
-      try { repo = parse(repoUrl) }
-      catch (err) { track.error(err, pkg) }
-
-      if (!repo) {
-        track.error('empty', pkg);
-      } else {
-        location = repo.replace(/\.git$/, '');
-        if (urlParts) {
-          location += urlParts[2];
-        }
-      }
+  repoUrls.get(name, function (err, url) {
+    if (err) {
+      if (err.name != 'NotFoundError') track.error(err);
+      redirect('http://npmjs.org/' + name);
+      return;
     }
 
-    res.statusCode = 302;
-    res.setHeader('location', location);
-    if (req.method == 'HEAD') res.end('')
-    else res.end('-> ' + location);
+    if (urlParts) url += urlParts[2];
+    redirect(url);
   });
 });
 
 function validUrl (url) {
   return typeof url == 'string' && url.length && url.indexOf('github') > -1
     ? url
-    : false
+    : false;
 }
 
 function static (req, res) {

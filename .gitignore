@@ -1,2 +1,3 @@
-cache/*
 *.sw*
+db
+node_modules
