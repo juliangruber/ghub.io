@@ -13,6 +13,7 @@ var db = sub(level(__dirname + '/db'));
 var meta = db.sublevel('meta');
 var repoUrls = db.sublevel('repo-urls');
 var registry = 'http://isaacs.iriscouch.com/registry';
+
 var sync = couchSync(registry, db, meta, function (data, emit) {
   var pkg = data.doc;
   var repoUrl = validUrl(pkg.repository)
@@ -23,7 +24,11 @@ var sync = couchSync(registry, db, meta, function (data, emit) {
         pkg.versions && Object.keys(pkg.versions).length
         && pkg.versions[Object.keys(pkg.versions).pop()].homepage
       );
-  if (repoUrl) emit(pkg.name, repoUrl, repoUrls);
+  if (repoUrl) {
+    try { repoUrl = parse(repoUrl).replace('.git', '') }
+    catch (_) { return }
+    emit(pkg.name, repoUrl, repoUrls);
+  }
 });
 
 sync.on('progress', function (ratio) {
