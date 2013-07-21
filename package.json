@@ -9,7 +9,6 @@
   "homepage": "http://ghub.io/",
   "main": "index.js",
   "scripts": {
-    "test": "tap test/*.js",
     "start": {
       "ghub.io": "bin/ghub.io.js"
     }
