@@ -10,6 +10,10 @@ Usage   : http://ghub.io/<strong>&lt;package-name&gt;</strong>
 
 Example : <a href="http://ghub.io/review">http://ghub.io/review</a>
 
+## Help
+
+Help me pay for hosting by tipping me on [gittip](https://www.gittip.com/juliangruber/).
+
 ## License
 
 (MIT)
