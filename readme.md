@@ -1,6 +1,6 @@
 # ghub.io
 
-The code behing [ghub.io](http://ghub.io/).
+The code behind [ghub.io](http://ghub.io/).
 
 ## What
 
