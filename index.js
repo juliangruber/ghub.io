@@ -48,7 +48,7 @@ module.exports = http.createServer(function (req, res) {
   repoUrls.get(name, function (err, url) {
     if (err) {
       if (err.name != 'NotFoundError') track.error(err);
-      redirect('http://npmjs.org/' + name);
+      redirect('https://www.npmjs.com/package/' + name);
       return;
     }
 
