@@ -19,21 +19,21 @@ test('valid package', 'HEAD /review', function (t, res) {
 });
 
 test('not found', 'GET /sdf098sdf098', function (t, res) {
-  t.equal(res.headers.location, 'http://npmjs.org/sdf098sdf098');
+  t.equal(res.headers.location, 'https://www.npmjs.com/package/sdf098sdf098');
   t.equal(res.statusCode, 302);
-  t.body('-> http://npmjs.org/sdf098sdf098');
+  t.body('-> https://www.npmjs.com/package/sdf098sdf098');
 });
 
 test('without repository', 'GET /jsonp', function (t, res) {
-  t.equal(res.headers.location, 'http://npmjs.org/jsonp');
+  t.equal(res.headers.location, 'https://www.npmjs.com/package/jsonp');
   t.equal(res.statusCode, 302);
-  t.body('-> http://npmjs.org/jsonp');
+  t.body('-> https://www.npmjs.com/package/jsonp');
 });
 
 test('bitbucket', 'GET /program', function (t, res) {
-  t.equal(res.headers.location, 'http://npmjs.org/program');
+  t.equal(res.headers.location, 'https://www.npmjs.com/package/program');
   t.equal(res.statusCode, 302);
-  t.body('-> http://npmjs.org/program');
+  t.body('-> https://www.npmjs.com/package/program');
 });
 
 test('homepage', 'GET /ihaveahomepage', function (t, res) {
