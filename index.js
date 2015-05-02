@@ -1,5 +1,5 @@
 var http = require('http');
-var parse = require('github-url').toUrl;
+var parse = require('github-url-to-object');
 var serve = require('ecstatic')(__dirname + '/static');
 var url = require('url');
 var track = require('./lib/track');
@@ -24,10 +24,9 @@ var sync = couchSync(registry, db, meta, function (data, emit) {
         pkg.versions && Object.keys(pkg.versions).length
         && pkg.versions[Object.keys(pkg.versions).pop()].homepage
       );
+  repoUrl = parse(repoUrl);
   if (repoUrl) {
-    try { repoUrl = parse(repoUrl).replace('.git', '') }
-    catch (_) { return }
-    emit(pkg.name, repoUrl, repoUrls);
+    emit(pkg.name, repoUrl.https_url, repoUrls);
   }
 });
 

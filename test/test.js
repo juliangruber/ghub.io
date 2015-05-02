@@ -24,10 +24,10 @@ test('not found', 'GET /sdf098sdf098', function (t, res) {
   t.body('-> https://www.npmjs.com/package/sdf098sdf098');
 });
 
-test('without repository', 'GET /jsonp', function (t, res) {
-  t.equal(res.headers.location, 'https://www.npmjs.com/package/jsonp');
+test('with repository', 'GET /jsonp', function (t, res) {
+  t.equal(res.headers.location, 'https://github.com/LearnBoost/jsonp');
   t.equal(res.statusCode, 302);
-  t.body('-> https://www.npmjs.com/package/jsonp');
+  t.body('-> https://github.com/LearnBoost/jsonp');
 });
 
 test('bitbucket', 'GET /program', function (t, res) {
