@@ -30,6 +30,12 @@ test('with repository', 'GET /jsonp', function (t, res) {
   t.body('-> https://github.com/LearnBoost/jsonp');
 });
 
+test('shorthand repository syntax', 'GET /binomial-cdf', function (t, res) {
+  t.equal(res.headers.location, 'https://github.com/kenany/binomial-cdf');
+  t.equal(res.statusCode, 302);
+  t.body('-> https://github.com/kenany/binomial-cdf');
+});
+
 test('bitbucket', 'GET /program', function (t, res) {
   t.equal(res.headers.location, 'https://www.npmjs.com/package/program');
   t.equal(res.statusCode, 302);
