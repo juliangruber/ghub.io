@@ -12,7 +12,7 @@ var couchSync = require('level-couch-sync');
 var db = sub(level(__dirname + '/db'));
 var meta = db.sublevel('meta');
 var repoUrls = db.sublevel('repo-urls');
-var registry = 'http://isaacs.iriscouch.com/registry';
+var registry = 'https://skimdb.npmjs.com/registry';
 
 var sync = couchSync(registry, db, meta, function (data, emit) {
   var pkg = data.doc;
