@@ -1,6 +1,6 @@
 {
   "name": "ghub",
-  "description": "npm-git.im/<package-name> takes you to the package's github page",
+  "description": "ghub.io/<package-name> takes you to the package's github page",
   "version": "1.0.0",
   "repository": {
     "type": "git",
