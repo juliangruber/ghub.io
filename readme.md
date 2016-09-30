@@ -10,20 +10,24 @@ Redirect to a <a href="http://npmjs.org">npm</a> package's <a href="https://gith
 
 http://ghub.io/<strong>&lt;package-name&gt;</strong>
 
-#### Usage as fast way from Terminal
+### Example
+[http://ghub.io/review](http://ghub.io/review)
 
-Add this function to your `.bashrc`
+### Pro-Tip: Shell alias
 
-```
+Add this function to your `.bashrc`/`.profile`:
+
+```sh
 function module() {
   open "http://ghub.io/$1"
 }
 ```
 
-From terminal `module colors`
+Then just:
 
-### Example
-[http://ghub.io/review](http://ghub.io/review)
+```bash
+$ module colors
+```
 
 ## Help
 
