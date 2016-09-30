@@ -29,10 +29,6 @@ Then just:
 $ module colors
 ```
 
-## Help
-
-Help me pay for hosting by tipping me on [gittip](https://www.gittip.com/juliangruber/).
-
 ## License
 
 (MIT)
