@@ -13,6 +13,22 @@ http://ghub.io/<strong>&lt;package-name&gt;</strong>
 ### Example
 [http://ghub.io/review](http://ghub.io/review)
 
+### Pro-Tip: Shell alias
+
+Add this function to your `.bashrc`/`.profile`:
+
+```sh
+function module() {
+  open "http://ghub.io/$1"
+}
+```
+
+Then just:
+
+```bash
+$ module colors
+```
+
 ## Help
 
 Help me pay for hosting by tipping me on [gittip](https://www.gittip.com/juliangruber/).
