@@ -17,16 +17,16 @@
     "ghub.io": "./bin/ghub.io.js"
   },
   "dependencies": {
-    "ecstatic": "~0.4.0",
+    "ecstatic": "~2.1.0",
     "ga": "0.0.2",
-    "github-url-to-object": "^1.5.2",
+    "github-url-to-object": "^2.2.6",
     "level-11": "^0.18.0",
-    "level-couch-sync": "~1.0.2",
-    "level-sublevel": "~4.8.0",
-    "predirect": "~1.0.0"
+    "level-couch-sync": "~1.2.3",
+    "level-sublevel": "~6.6.1",
+    "predirect": "~1.1.0"
   },
   "devDependencies": {
-    "webtap": "~0.1.0"
+    "webtap": "~0.2.0"
   },
   "keywords": [
     "npm",
