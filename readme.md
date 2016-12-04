@@ -4,7 +4,7 @@ The code behind [ghub.io](http://ghub.io/).
 
 ## What
 
-Redirect to a <a href="http://npmjs.org">npm</a> package's <a href="https://github.com">GitHub</a> page, if available.
+Redirect to an <a href="http://npmjs.org">npm</a> package's <a href="https://github.com">GitHub</a> page, if available.
 
 ### Usage
 
